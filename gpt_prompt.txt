@@ -1,0 +1,61 @@
+ 
+用详细的描述词汇来描述图片中的服装细节，并以json格式返回，我会解析内容后用于文字生成服装场景，希望追求高还原度。
+
+描述服装的要求：
+1.描述图片中上衣细节，用于文生图提示词，追求与原图的还原
+2.只描述上衣或者外套，忽略内搭、内衣、裤子
+3.必须明确上衣类型
+4.忽略背景、人物、手、衣服撑，忽略上衣以外一切事物，聚焦上衣特征描述
+5.扣子需要描述数量与颜色
+6.拉链需要描述拉链颜色
+7.口袋需要描述大小、位置、形状、是否外露形状
+8.衣领需要描述特征
+9.袖子需要描述长短
+10.颜色描述需要洗知道什么部位什么颜色
+11.服装的装饰图案，描述位置、大小、分布、密度
+12.不能忽略衣服相连接的飘带、拉绳、金属装饰描述
+
+ 
+最终输出结果的格式期望: 
+ {
+    "description": "这是一件轻薄的深蓝色夹克，采用风衣材质，正面为黑色拉链门襟，无扣子。左袖肩部有圆形口袋并带有Timberland标志补丁，口袋为装饰性。衣领为黑色罗纹立领，袖口和下摆为弹性收口。主色为深蓝，细节为黑色。整体无其他图案或装饰，风格简约运动。",
+    "category": [
+      {
+        "zh": "外套",
+        "en": "Outerwear",
+        "sub_zh": "夹克",
+        "sub_en": "Jacket"
+      }
+    ],
+    "noun_features": [
+      {"zh": "无帽子", "en": "No hood"},
+      {"zh": "有拉链", "en": "With zipper"},
+      {"zh": "有口袋", "en": "With pocket"},
+      {"zh": "长袖", "en": "Long sleeves"},
+      {"zh": "罗纹立领", "en": "Ribbed stand-up collar"}
+    ],
+    "adj_features": [
+      {"zh": "深蓝色", "en": "Navy blue"},
+      {"zh": "风衣材质", "en": "Windbreaker material"},
+      {"zh": "简约风格", "en": "Minimalist style"},
+      {"zh": "修身", "en": "Slim fit"},
+      {"zh": "中长款", "en": "Mid-length"},
+      {"zh": "无图案", "en": "No pattern"}
+    ],
+    "details": {
+      "type_of_top": "The top is a lightweight, navy blue zip-up jacket, made from a thin, windbreaker-like material.",
+      "buttons": "There are no visible buttons on the front closure.",
+      "zipper": "The zipper is black in color, running vertically from the collar to the hemline.",
+      "pocket": "There is one pocket located on the left sleeve near the shoulder. It is round in shape, not prominent, and features a visible, circular Timberland logo patch. The pocket is more decorative than functional.",
+      "collar": "The collar is a black, ribbed, stand-up collar that provides a subtle contrast to the rest of the jacket.",
+      "sleeves": "The sleeves are long, extending fully to the wrists. The sleeve ends are slightly elasticated, maintaining the structure.",
+      "color_distribution_and_washing_effect": "The primary color is navy blue throughout the body and sleeves. The collar, zipper lining, and sleeve cuffs are black. The lower hem features a blue stripe. With washing, the jacket may show noticeable fading in the body and sleeve areas while the black elements retain their color intensity.",
+      "decorative_patterns_and_details": "A circular patch with the Timberland logo is present on the left sleeve, near the shoulder. There are no other visible patterns, prints, or decorative elements on the main body or back of the jacket.",
+      "ribbons_drawstrings_metal_decorations": "No ribbons, drawstrings, or metal decorations are present."
+    },
+    "colors": [
+      {"zh": "深蓝色", "en": "Navy Blue", "rgb": [20, 34, 70], "ratio": 80},
+      {"zh": "黑色", "en": "Black", "rgb": [0, 0, 0], "ratio": 18},
+      {"zh": "白色", "en": "White", "rgb": [255, 255, 255], "ratio": 2}
+    ]
+  }

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+requests
+openai  # 如需用openai官方库
+pillow  # mock图片生成用
+pytest  # 测试 
+httpx
+python-multipart

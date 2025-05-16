@@ -1,0 +1,256 @@
+{
+  "description": "ChatGPT服装结构化识别提示词，适用于图片或文本描述转结构化JSON。",
+  "fields": {
+    "category": {
+      "desc": "服装分类数组，支持多个分类，按相关性排序",
+      "type": "array",
+      "item": {
+        "zh": "一级分类中文",
+        "en": "一级分类英文",
+        "sub_zh": "二级分类中文",
+        "sub_en": "二级分类英文"
+      },
+      "example": [
+        {"zh": "外套", "en": "Outerwear", "sub_zh": "夹克", "sub_en": "Jacket"}
+      ]
+    },
+    "noun_features": {
+      "desc": "主要名词特征数组，每项为中英文对照对象",
+      "type": "array",
+      "item": {"zh": "中文名词特征", "en": "英文名词特征"},
+      "example": [
+        {"zh": "无帽子", "en": "No hood"},
+        {"zh": "有拉链", "en": "With zipper"}
+      ]
+    },
+    "adj_features": {
+      "desc": "主要形容词特征数组，每项为中英文对照对象",
+      "type": "array",
+      "item": {"zh": "中文形容词特征", "en": "英文形容词特征"},
+      "example": [
+        {"zh": "深蓝色", "en": "Navy blue"},
+        {"zh": "修身", "en": "Slim fit"}
+      ]
+    },
+    "details": {
+      "desc": "详细分点英文描述，每个点为完整英文句子",
+      "type": "object",
+      "fields": {
+        "type_of_top": "上衣类型",
+        "buttons": "扣子描述",
+        "zipper": "拉链描述",
+        "pocket": "口袋描述",
+        "collar": "领型描述",
+        "sleeves": "袖子描述",
+        "color_distribution_and_washing_effect": "颜色分布与洗后变化",
+        "decorative_patterns_and_details": "装饰图案与细节",
+        "ribbons_drawstrings_metal_decorations": "带子、抽绳、金属装饰"
+      },
+      "example": {
+        "type_of_top": "The top is a lightweight, navy blue zip-up jacket, made from a thin, windbreaker-like material.",
+        "buttons": "There are no visible buttons on the front closure.",
+        "zipper": "The zipper is black in color, running vertically from the collar to the hemline.",
+        "pocket": "There is one pocket located on the left sleeve near the shoulder. It is round in shape, not prominent, and features a visible, circular Timberland logo patch. The pocket is more decorative than functional.",
+        "collar": "The collar is a black, ribbed, stand-up collar that provides a subtle contrast to the rest of the jacket.",
+        "sleeves": "The sleeves are long, extending fully to the wrists. The sleeve ends are slightly elasticated, maintaining the structure.",
+        "color_distribution_and_washing_effect": "The primary color is navy blue throughout the body and sleeves. The collar, zipper lining, and sleeve cuffs are black. The lower hem features a blue stripe. With washing, the jacket may show noticeable fading in the body and sleeve areas while the black elements retain their color intensity.",
+        "decorative_patterns_and_details": "A circular patch with the Timberland logo is present on the left sleeve, near the shoulder. There are no other visible patterns, prints, or decorative elements on the main body or back of the jacket.",
+        "ribbons_drawstrings_metal_decorations": "No ribbons, drawstrings, or metal decorations are present."
+      }
+    },
+    "colors": {
+      "desc": "颜色数组，按占比排序，每项为中英文、RGB和占比",
+      "type": "array",
+      "item": {"zh": "中文颜色", "en": "英文颜色", "rgb": [0,0,0], "ratio": 0},
+      "example": [
+        {"zh": "深蓝色", "en": "Navy Blue", "rgb": [20, 34, 70], "ratio": 80},
+        {"zh": "黑色", "en": "Black", "rgb": [0, 0, 0], "ratio": 18},
+        {"zh": "白色", "en": "White", "rgb": [255, 255, 255], "ratio": 2}
+      ]
+    },
+    "warning": {
+      "desc": "如有新分类，输出警示内容，否则不输出该字段",
+      "type": "string",
+      "example": "识别到新分类：XXX"
+    }
+  },
+  "category_reference": [
+    {
+      "zh": "上衣",
+      "en": "Tops",
+      "subs": [
+        {"zh": "T恤", "en": "T-Shirt"},
+        {"zh": "衬衫", "en": "Shirt"},
+        {"zh": "背心", "en": "Vest"},
+        {"zh": "毛衣", "en": "Sweater"},
+        {"zh": "卫衣", "en": "Sweatshirt"},
+        {"zh": "Polo衫", "en": "Polo Shirt"}
+      ]
+    },
+    {
+      "zh": "裤装",
+      "en": "Pants",
+      "subs": [
+        {"zh": "牛仔裤", "en": "Jeans"},
+        {"zh": "西裤", "en": "Dress Pants"},
+        {"zh": "运动裤", "en": "Joggers"},
+        {"zh": "短裤", "en": "Shorts"},
+        {"zh": "打底裤", "en": "Leggings"}
+      ]
+    },
+    {
+      "zh": "裙装",
+      "en": "Skirts",
+      "subs": [
+        {"zh": "短裙", "en": "Mini Skirt"},
+        {"zh": "长裙", "en": "Maxi Skirt"},
+        {"zh": "半身裙", "en": "Midi Skirt"},
+        {"zh": "铅笔裙", "en": "Pencil Skirt"},
+        {"zh": "百褶裙", "en": "Pleated Skirt"},
+        {"zh": "连衣裙", "en": "Dress"},
+        {"zh": "背带裙", "en": "Suspender Skirt"}
+      ]
+    },
+    {
+      "zh": "外套",
+      "en": "Outerwear",
+      "subs": [
+        {"zh": "风衣", "en": "Trench Coat"},
+        {"zh": "夹克", "en": "Jacket"},
+        {"zh": "羽绒服", "en": "Down Jacket"},
+        {"zh": "大衣", "en": "Coat"},
+        {"zh": "皮衣", "en": "Leather Jacket"},
+        {"zh": "短款", "en": "Short"},
+        {"zh": "中长款", "en": "Mid-Length"},
+        {"zh": "长款", "en": "Long"},
+        {"zh": "超长款", "en": "Extra Long"}
+      ]
+    },
+    {
+      "zh": "运动服",
+      "en": "Sportswear",
+      "subs": [
+        {"zh": "运动上衣", "en": "Sports Top"},
+        {"zh": "运动裤", "en": "Sports Pants"},
+        {"zh": "瑜伽服", "en": "Yoga Wear"},
+        {"zh": "训练服", "en": "Training Wear"},
+        {"zh": "连体运动服", "en": "Sports Jumpsuit"},
+        {"zh": "运动连体裙", "en": "Sports Romper"}
+      ]
+    },
+    {
+      "zh": "内衣/泳装",
+      "en": "Underwear/Swimwear",
+      "subs": [
+        {"zh": "文胸", "en": "Bra"},
+        {"zh": "内裤", "en": "Underpants"},
+        {"zh": "吊带", "en": "Camisole"},
+        {"zh": "泳裤", "en": "Swim Trunks"},
+        {"zh": "泳衣", "en": "Swimsuit"},
+        {"zh": "比基尼", "en": "Bikini"}
+      ]
+    },
+    {
+      "zh": "配饰",
+      "en": "Accessories",
+      "subs": [
+        {"zh": "帽子", "en": "Hat"},
+        {"zh": "围巾", "en": "Scarf"},
+        {"zh": "手套", "en": "Gloves"},
+        {"zh": "领带", "en": "Tie"},
+        {"zh": "腰带", "en": "Belt"}
+      ]
+    },
+    {
+      "zh": "鞋类",
+      "en": "Footwear",
+      "subs": [
+        {"zh": "运动鞋", "en": "Sneakers"},
+        {"zh": "高跟鞋", "en": "High Heels"},
+        {"zh": "平底鞋", "en": "Flats"},
+        {"zh": "靴子", "en": "Boots"},
+        {"zh": "凉鞋", "en": "Sandals"},
+        {"zh": "工作鞋", "en": "Work Shoes"}
+      ]
+    },
+    {
+      "zh": "正式服装",
+      "en": "Formal Wear",
+      "subs": [
+        {"zh": "礼服裙", "en": "Gown"},
+        {"zh": "礼服套装", "en": "Formal Suit"},
+        {"zh": "晚礼服", "en": "Evening Dress"},
+        {"zh": "西装礼服", "en": "Tuxedo"},
+        {"zh": "旗袍", "en": "Qipao"},
+        {"zh": "连体礼服裙", "en": "Formal Jumpsuit"}
+      ]
+    },
+    {
+      "zh": "家居服/睡衣",
+      "en": "Homewear/Sleepwear",
+      "subs": [
+        {"zh": "家居裤", "en": "Lounge Pants"},
+        {"zh": "家居上衣", "en": "Lounge Top"},
+        {"zh": "睡袍", "en": "Bathrobe"},
+        {"zh": "居家裙", "en": "House Dress"},
+        {"zh": "睡裤", "en": "Pajama Pants"},
+        {"zh": "睡衣套装", "en": "Pajama Set"},
+        {"zh": "睡裙", "en": "Nightgown"}
+      ]
+    },
+    {
+      "zh": "连体服",
+      "en": "Jumpsuits/Rompers",
+      "subs": [
+        {"zh": "连体裤", "en": "Jumpsuit"},
+        {"zh": "连体裙", "en": "Romper"},
+        {"zh": "连体运动服", "en": "Sports Jumpsuit"},
+        {"zh": "连体礼服", "en": "Formal Jumpsuit"},
+        {"zh": "工装连体服", "en": "Work Jumpsuit"},
+        {"zh": "休闲连体服", "en": "Casual Romper"}
+      ]
+    }
+  ],
+  "example_output": {
+    "description": "这是一件轻薄的深蓝色夹克，采用风衣材质，正面为黑色拉链门襟，无扣子。左袖肩部有圆形口袋并带有Timberland标志补丁，口袋为装饰性。衣领为黑色罗纹立领，袖口和下摆为弹性收口。主色为深蓝，细节为黑色。整体无其他图案或装饰，风格简约运动。",
+    "category": [
+      {
+        "zh": "外套",
+        "en": "Outerwear",
+        "sub_zh": "夹克",
+        "sub_en": "Jacket"
+      }
+    ],
+    "noun_features": [
+      {"zh": "无帽子", "en": "No hood"},
+      {"zh": "有拉链", "en": "With zipper"},
+      {"zh": "有口袋", "en": "With pocket"},
+      {"zh": "长袖", "en": "Long sleeves"},
+      {"zh": "罗纹立领", "en": "Ribbed stand-up collar"}
+    ],
+    "adj_features": [
+      {"zh": "深蓝色", "en": "Navy blue"},
+      {"zh": "风衣材质", "en": "Windbreaker material"},
+      {"zh": "简约风格", "en": "Minimalist style"},
+      {"zh": "修身", "en": "Slim fit"},
+      {"zh": "中长款", "en": "Mid-length"},
+      {"zh": "无图案", "en": "No pattern"}
+    ],
+    "details": {
+      "type_of_top": "The top is a lightweight, navy blue zip-up jacket, made from a thin, windbreaker-like material.",
+      "buttons": "There are no visible buttons on the front closure.",
+      "zipper": "The zipper is black in color, running vertically from the collar to the hemline.",
+      "pocket": "There is one pocket located on the left sleeve near the shoulder. It is round in shape, not prominent, and features a visible, circular Timberland logo patch. The pocket is more decorative than functional.",
+      "collar": "The collar is a black, ribbed, stand-up collar that provides a subtle contrast to the rest of the jacket.",
+      "sleeves": "The sleeves are long, extending fully to the wrists. The sleeve ends are slightly elasticated, maintaining the structure.",
+      "color_distribution_and_washing_effect": "The primary color is navy blue throughout the body and sleeves. The collar, zipper lining, and sleeve cuffs are black. The lower hem features a blue stripe. With washing, the jacket may show noticeable fading in the body and sleeve areas while the black elements retain their color intensity.",
+      "decorative_patterns_and_details": "A circular patch with the Timberland logo is present on the left sleeve, near the shoulder. There are no other visible patterns, prints, or decorative elements on the main body or back of the jacket.",
+      "ribbons_drawstrings_metal_decorations": "No ribbons, drawstrings, or metal decorations are present."
+    },
+    "colors": [
+      {"zh": "深蓝色", "en": "Navy Blue", "rgb": [20, 34, 70], "ratio": 80},
+      {"zh": "黑色", "en": "Black", "rgb": [0, 0, 0], "ratio": 18},
+      {"zh": "白色", "en": "White", "rgb": [255, 255, 255], "ratio": 2}
+    ]
+  }
+} 
